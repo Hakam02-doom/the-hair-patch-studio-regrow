@@ -1,0 +1,100 @@
+/* The Hair Patch Studio brand layer on top of the Regrow theme.
+   Palette + type from thehairpatchstudio.com (Astra global colours, Rubik + Karla). */
+:root {
+  --hps-orange: #FD9800;
+  --hps-orange-dark: #E98C00;
+  --hps-orange-text: #A15C00;   /* orange that passes AA as small text on light backgrounds */
+  --hps-navy: #0F172A;
+  --hps-slate: #454F5E;
+  --hps-cream: #FEF9E1;
+  --hps-cream-2: #F9F0C8;
+  --theme-font-h1_font-family: 'Rubik', sans-serif;
+  --theme-font-h2_font-family: 'Rubik', sans-serif;
+  --theme-font-h3_font-family: 'Rubik', sans-serif;
+  --theme-font-h4_font-family: 'Rubik', sans-serif;
+  --theme-font-h5_font-family: 'Rubik', sans-serif;
+  --theme-font-h6_font-family: 'Rubik', sans-serif;
+  --theme-font-p_font-family: 'Karla', sans-serif;
+  --theme-font-button_font-family: 'Rubik', sans-serif;
+  --theme-font-menu_font-family: 'Rubik', sans-serif;
+  --theme-font-submenu_font-family: 'Rubik', sans-serif;
+}
+
+body { font-family: 'Karla', sans-serif; }
+h1, h2, h3, h4, h5, h6, .elementor-heading-title, .sc_item_title, .trx-addons-counter-number,
+.trx_addons_bg_text_char, .sc_button, .elementor-button, .menu_main_nav > li > a, .sc_layouts_menu_nav > li > a {
+  font-family: 'Rubik', sans-serif !important;
+}
+
+/* Logo: Regrow's header was sized for a 163x42 wordmark; the HPS logo is a taller lockup */
+.sc_layouts_logo img, .logo_image, img.logo_main {
+  height: 64px !important; width: auto !important; max-height: none !important;
+}
+@media (max-width: 1023px) { .sc_layouts_logo img, .logo_image, img.logo_main { height: 52px !important; } }
+
+/* ---------- Fixes to issues inherited from the Regrow theme ---------- */
+
+/* 1. Contrast: Regrow sets white text on its coral buttons. On HPS orange that is 2.1:1,
+      so solid accent buttons carry navy text (8:1) and keep the orange fill. */
+.sc_button.color_style_default:not(.sc_button_bordered),
+.sc_button_default:not(.sc_button_bordered), .elementor-button, .metform-btn,
+.sc_layouts_item_link.sc_button, a.sc_button {
+  color: var(--hps-navy) !important;
+}
+.sc_button:hover, .elementor-button:hover, .metform-btn:hover { color: #fff !important; background-color: var(--hps-navy) !important; }
+
+/* small orange text on light backgrounds -> darker AA-safe orange */
+.sc_item_subtitle, .elementor-widget-heading h6.elementor-heading-title,
+.post_meta, .post_meta a, .sc_button_simple, a.more-link { color: var(--hps-orange-text); }
+
+/* 2. Body copy: Regrow's grey (#8B8582) was 3.6:1 on its cream; HPS slate is used instead
+      (set through the theme colour tokens) and given a comfortable line length */
+.elementor-widget-text-editor p, .sc_item_descr { max-width: 64ch; line-height: 1.7; }
+.elementor-align-center .elementor-widget-text-editor p, .sc_align_center .sc_item_descr { margin-left: auto; margin-right: auto; }
+
+/* 3. ThemeREX demo floating panel and buy-theme buttons */
+.trx_demo_panels, #trx_demo_panels, .trx_addons_demo_panel { display: none !important; }
+
+/* WhatsApp button (replaces the demo's third-party chat widget; HPS uses WhatsApp) */
+.hps-whatsapp {
+  position: fixed; right: 24px; bottom: 24px; z-index: 9999; width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(15, 23, 42, .25);
+  transition: transform .2s ease;
+}
+.hps-whatsapp:hover { transform: translateY(-2px); }
+.hps-whatsapp svg { width: 30px; height: 30px; fill: #fff; }
+@media (prefers-reduced-motion: reduce) { .hps-whatsapp { transition: none; } }
+
+/* 4. Orange bands: Regrow put white text on its accent; on HPS orange that fails contrast -> navy */
+.elementor-element-a0f0d4c, .elementor-element-a0f0d4c :is(h1,h2,h3,h4,h5,h6,p,span,div,.elementor-heading-title,.trx-addons-counter-number),
+.elementor-element-6a90081, .elementor-element-6a90081 :is(h1,h2,h3,h4,h5,h6,p,span,div,.elementor-heading-title,.trx-addons-counter-number) {
+  color: var(--hps-navy) !important;
+}
+.hps-hair-lines { width: 100%; height: auto; }
+.hps-hair-lines, .hps-hair-lines path { fill: none !important; stroke: currentColor; }
+.elementor-icon:has(.hps-hair-lines) { background: transparent !important; }
+
+/* 5. "Why clients choose us" badges: Regrow faded its partner logos to 30% opacity */
+img[src*="partner-0"] { opacity: 1 !important; }
+/* navy ribbon (was Regrow's secondary blue): white text */
+.elementor-element-56eaf89, .elementor-element-56eaf89 * { color: #fff !important; }
+.trx-addons-counter-number-wrap { white-space: nowrap; }
+
+/* 6. Regrow hyphenates headings ("hun-dreds"): keep words whole */
+h1, h2, h3, h4, h5, h6, .elementor-heading-title { hyphens: manual !important; -webkit-hyphens: manual !important; }
+/* WhatsApp button sits above the theme's back-to-top button */
+.hps-whatsapp { bottom: 84px; }
+@media (max-width: 767px) { .hps-whatsapp { right: 16px; bottom: 76px; width: 52px; height: 52px; } }
+
+/* 7. Review cards: Regrow lets each slide size to its quote -> uneven cards. Equal height, author pinned to the bottom */
+.trx-addons-testimonials-carousel .swiper-wrapper { align-items: stretch; }
+.trx-addons-testimonials-carousel .swiper-slide { height: auto !important; display: flex; }
+.trx-addons-testimonials-carousel .trx-addons-testimonials-content-wrapper { height: 100%; width: 100%; display: flex; flex-direction: column; }
+.trx-addons-testimonials-carousel .trx-addons-testimonials__img-info { margin-top: auto; }
+
+/* 8. Highlight cards: Regrow's masonry grid used three different image shapes -> one consistent 4:3 shape */
+.trx-addons-posts-item img.attachment-regrow-thumb-masonry-big,
+.trx-addons-posts-item .trx-addons-posts-item-thumbnail img {
+  width: 100% !important; height: auto !important; aspect-ratio: 4 / 3; object-fit: cover;
+}
+.trx-addons-posts.trx-addons-elementor-grid { align-items: start; }
